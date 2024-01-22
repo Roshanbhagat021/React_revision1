@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boilerplate Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            font-family: sans-serif;
+        }
+
+
+        #main {
+            width: 100%;
+            height: 80vh;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 2rem;
+            gap: 4rem;
+        }
+
+
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+
+        .SuperHeroCard {
+            width: 23vw;
+            height: 450px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 1em;
+            gap: 5px;
+            padding: 15px;
+            transition: scale 0.2s linear;
+            cursor: pointer;
+        }
+
+        .SuperHeroCard p {
+            font-size: 1.3vw;
+        }
+
+        .SuperHeroCard img {
+            border-top-left-radius: 1em;
+            border-top-right-radius: 1em;
+            width: 100%;
+            height: 50%;
+        }
+
+        .higtlighted-text {
+            font-weight: bold;
+        }
+
+        .SuperHeroCard:hover{
+            scale: 1.05;
+        }
+
+
+        @media screen and (width<800px) {
+            #main {
+            width: 100%;
+            height: 80vh;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            padding: 2rem;
+            gap: 4rem;
+        }
+        
+        .SuperHeroCard {
+            width: 45vw;
+            height: 400px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.5em;
+            gap: 5px;
+            padding:  20px;
+        }
+        .SuperHeroCard p {
+            font-size: 2vw;
+        }
+
+
+        .SuperHeroCard img {
+            border-top-left-radius: 0.5em;
+            border-top-right-radius: 0.5em;
+            width: 100%;
+            height: 50%;
+        }
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    const superheroes = [
+
+        {
+            name: "Batman",
+            powers: ["Rich", "Fly", "Genius"],
+            address: {
+                street: "Gotham St",
+                city: "Gotham",
+                country: "USA",
+            },
+            age: 21,
+            isBachelor: true,
+            imageUrl:
+                "https://rukminim2.flixcart.com/image/850/1000/poster/7/d/g/batman-portrait-bt455566-medium-original-imaekp86fhb3fhxf.jpeg",
+        },
+        {
+            name: "Superman",
+            powers: ["Laser Fry", "Fly", "Runs Fast"],
+            address: {
+                street: "Central St",
+                city: "New York",
+                country: "USA",
+            },
+            age: 41,
+            isBachelor: false,
+            imageUrl:
+                "https://c8.alamy.com/comp/2R7EMM0/portrait-of-a-drawing-of-superman-superhero-warner-dc-and-comics-concept-2R7EMM0.jpg",
+        },
+    ];
+
+
+    // small components for showing prowers of superhero
+    function Powers({ powers }) {
+        return (
+            <>
+                {powers.map((power, index) => {
+                    return <li key={index}>{power}</li>
+                })}
+            </>
+        )
+    }
+
+    // Superhero Card component
+    function SuperheroCard({ superhero }) {
+        return (
+            <>
+                <div className="SuperHeroCard">
+                    <img src={superhero.imageUrl} />
+                    <p><span className="higtlighted-text">NAME:</span>{superhero.name}</p>
+                    <p><span className="higtlighted-text">POWERS</span></p>
+                    <Powers powers={superhero.powers} />
+                    <p><span className="higtlighted-text">IS BACHELOR:</span><span style={superhero.isBachelor ? { color: "red" } : { color: "green" }}>{superhero.isBachelor ? "Yes" : "No"}</span></p>
+                    <p><span className="higtlighted-text">AGE:</span>{superhero.age}</p>
+                    <p><span className="higtlighted-text">ADDRESS:</span>{superhero.address.street + " " + superhero.address.city + " " + superhero.address.country}</p>
+
+                </div>
+
+            </>
+        )
+    }
+
+
+
+    // App or the Main component
+    function App() {
+        return (<>
+            <h1>SuperHeros</h1>
+            <div id="main">
+                {/*Using map medthod to itrate over oll of superheros array*/}
+                {superheroes.map((superhero, index) => {
+                    return <SuperheroCard key={index} superhero={superhero} />
+                })}
+            </div>
+        </>)
+    }
+
+
+    // Rendering the app component to the root div
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+</html>
