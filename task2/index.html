@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Boilerplate Code</title>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        // Contaner component
+        const Container = ({ children }) => {
+
+            // with the help of destructuring getting the passed arguments
+            const [text, lang, color] = children;
+            const { props: { children: textchild } } = text;
+
+            return (
+
+                // Appling conditional styling like fontsize and underline
+                <div style={{ border: `2px solid ${color}`, color:`${color}`, fontSize: color == undefined ? "20px": "15px", borderRadius:"10px", cursor: color == undefined ? "default": "pointer", textDecoration: color == undefined ? "underline" : "none", padding: "15px", margin: "15px", textAlign: "center", fontFamily: "monospace" }} onClick={() => alert(`🙏 ${textchild}`)}>
+                    {text}{lang == "null" ? null : lang}
+                </div>
+            )
+        }
+
+
+        // The App component 
+        const App = () => {
+            return (
+                // rendering the Container component few times
+                <>
+                    <Container><h1>HELLO IN DIFFERENT LANAGUAGES</h1>null</Container>
+                    <Container><h2>Namaste</h2><p>(Hindi)</p>orange</Container>
+                    <Container><h2>Hello</h2><p>(English)</p>red</Container>
+                    <Container><h2>ٱلسَّلَامُ عَلَيْكُمْ (Assālam ‘alaykum)</h2><p>(Urdu)</p> Green</Container>
+                    <Container><h2>ਸਤਿ ਸ਼੍ਰੀ ਅਕਾਲ (Sata Sri Akal)</h2><p>(Panjabi)</p>blue</Container>
+                    <Container><h2>নমস্কার (Nomoshkar)</h2><p>(Bangla)</p>brown</Container>
+                    <Container><h2>வணக்கம் (Vanakkam)</h2><p>(Tamil)</p>purple</Container>
+                    <Container><h2>राधे राधे</h2><p>(BrajBhasha)</p>deeppink</Container>
+                    <Container><h2>नमस्कार</h2><p>(Sanskrit)</p> gray</Container>
+                </>
+            )
+        }
+
+
+
+        let rootElement = ReactDOM.createRoot(document.getElementById("root"))
+        rootElement.render(<App />)    
+    </script>
+</body>
+
+</html>
